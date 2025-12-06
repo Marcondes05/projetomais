@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Início - Projetomais{% endblock %}
+
+{% block content %}
+
+<div class="pagina">
+    <div class="welcome-box">
+        <h1 class="titulo-principal">Bem-vindo ao Projetomais</h1>
+
+        <p class="welcome-text">
+            Plataforma do IFTM para centralização e organização de projetos acadêmicos.
+            Utilize o menu superior para navegar entre os módulos do sistema.
+        </p>
+
+        {% if current_user.is_authenticated %}
+            <p><strong>Olá, {{ current_user.nome }}!</strong></p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Registrar Usuário{% endblock %}
+
+{% block content %}
+
+<div class="pagina-central">
+
+    <div class="form-card">
+        <h2 class="form-title">Criar Conta</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, msg in messages %}
+                <div class="alert alert-{{ category }}">{{ msg }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('auth.registro') }}">
+
+            <label class="label">Nome completo</label>
+            <input type="text" name="nome" class="input-field" required>
+
+            <label class="label">CPF</label>
+            <input type="text" name="cpf" class="input-field" required>
+
+            <label class="label">E-mail institucional</label>
+            <input type="email" name="email" class="input-field" required>
+
+            <label class="label">Curso (somente discentes)</label>
+            <input type="text" name="curso" class="input-field">
+
+            <label class="label">Senha</label>
+            <input type="password" name="senha" class="input-field" required>
+
+            <button type="submit" class="btn-primary">Registrar</button>
+        </form>
+
+        <p class="text-small">
+            Já possui conta?
+            <a href="{{ url_for('auth.login') }}" class="link">Entrar</a>
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

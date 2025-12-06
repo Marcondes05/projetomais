@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Login - Projetomais{% endblock %}
+
+{% block content %}
+
+<div class="pagina-central">
+
+    <div class="form-card">
+        <h2 class="form-title">Entrar no Sistema</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, msg in messages %}
+                <div class="alert alert-{{ category }}">{{ msg }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('auth.login') }}">
+
+            <label class="label">E-mail institucional</label>
+            <input type="email" name="email" placeholder="seuemail@iftm.edu.br" class="input-field" required>
+
+            <label class="label">Senha</label>
+            <input type="password" name="senha" placeholder="********" class="input-field" required>
+
+            <button type="submit" class="btn-primary">Entrar</button>
+        </form>
+
+        <p class="text-small">Não tem conta?
+            <a href="{{ url_for('auth.registro') }}" class="link">Registrar</a>
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

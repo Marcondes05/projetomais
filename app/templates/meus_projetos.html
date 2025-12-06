@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Meus Projetos{% endblock %}
+
+{% block content %}
+
+<div class="pagina">
+    <h1 class="titulo-principal">Meus Projetos</h1>
+
+    {% if projetos %}
+        {% for p in projetos %}
+            <div class="project-card">
+
+                <div class="project-header">
+                    <div class="project-title">{{ p.titulo }}</div>
+                    <a class="btn-view">Visualizar</a>
+                </div>
+
+                <div class="project-body">
+                    <div><strong>Orientador:</strong> {{ p.orientador }}</div>
+                </div>
+
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Você não possui projetos vinculados.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

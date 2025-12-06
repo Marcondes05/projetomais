@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Meu Perfil{% endblock %}
+
+{% block content %}
+
+<div class="pagina-central">
+
+    <div class="perfil-card">
+
+        <h2 class="form-title">Meu Perfil</h2>
+
+        <p><strong>Nome:</strong> {{ current_user.nome }}</p>
+        <p><strong>Email:</strong> {{ current_user.email }}</p>
+        <p><strong>Tipo:</strong> {{ current_user.tipo }}</p>
+
+        {% if current_user.curso %}
+        <p><strong>Curso:</strong> {{ current_user.curso }}</p>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

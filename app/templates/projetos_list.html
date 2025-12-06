@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Projetos Cadastrados{% endblock %}
+
+{% block content %}
+
+<div class="pagina">
+
+    <h1 class="titulo-principal">Projetos Cadastrados</h1>
+
+    <!-- FILTROS -->
+    <div class="filter-box">
+        <input type="text" placeholder="Buscar por título..." class="input-text">
+
+        <select class="input-select">
+            <option>Tipo</option>
+            <option>Pesquisa</option>
+            <option>Extensão</option>
+            <option>Ensino</option>
+        </select>
+
+        <select class="input-select">
+            <option>Ano</option>
+            <option>2024</option>
+            <option>2023</option>
+        </select>
+
+        <button class="btn-filtrar">Filtrar</button>
+    </div>
+
+    <!-- LISTAGEM -->
+    {% if projetos %}
+        {% for p in projetos %}
+            <div class="project-card">
+
+                <div class="project-header">
+                    <div class="project-title">{{ p.titulo }}</div>
+                    <a class="btn-view">Visualizar</a>
+                </div>
+
+                <div class="project-body">
+                    <div><strong>Aluno:</strong> {{ p.aluno }}</div>
+                    <div><strong>Orientador:</strong> {{ p.orientador }} · <strong>Ano:</strong> {{ p.ano }}</div>
+                </div>
+
+            </div>
+        {% endfor %}
+    {% else %}
+
+        <p>Nenhum projeto encontrado.</p>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

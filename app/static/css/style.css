@@ -1,0 +1,207 @@
+/* ====================== */
+/* ESTILO GERAL */
+/* ====================== */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f3f3f3;
+}
+
+/* ====================== */
+/* NAVBAR */
+/* ====================== */
+.navbar {
+    background: #005026;
+    padding: 14px 25px;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 15px;
+}
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+/* ====================== */
+/* HOME / LISTAGEM */
+/* ====================== */
+
+.pagina {
+    background: #f0f2f0;
+    padding: 30px 40px;
+    min-height: 100vh;
+}
+
+.titulo-principal {
+    color: #005026;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+/* Filtros */
+.filter-box {
+    background: #e8f5e9;
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.input-text, 
+.input-select {
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #bbb;
+}
+
+.btn-filtrar {
+    background: #005026;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 15px;
+    cursor: pointer;
+}
+.btn-filtrar:hover {
+    background: #006837;
+}
+
+/* Card dos projetos */
+.project-card {
+    background: white;
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 15px;
+    box-shadow: 0 0 6px rgba(0,0,0,0.12);
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.project-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #004d26;
+    max-width: 85%;
+}
+
+.btn-view {
+    padding: 6px 15px;
+    background: #005026;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+}
+.btn-view:hover {
+    background: #007a3d;
+}
+
+.project-body {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* ====================== */
+/* FORMULÁRIOS (LOGIN, REGISTRO, PERFIL) */
+/* ====================== */
+
+.pagina-central {
+    background: #f0f2f0;
+    width: 100%;
+    min-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-card, 
+.perfil-card {
+    background: #ffffff;
+    width: 420px;
+    padding: 28px 32px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.15);
+}
+
+.form-title {
+    color: #005026;
+    font-size: 26px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    margin-bottom: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.label {
+    font-weight: bold;
+    color: #003818;
+}
+
+/* Botão principal */
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    background: #005026;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+.btn-primary:hover {
+    background: #007a3d;
+}
+
+/* Links */
+.link {
+    color: #005026;
+    text-decoration: none;
+    font-weight: bold;
+}
+.link:hover {
+    text-decoration: underline;
+}
+
+.text-small {
+    margin-top: 12px;
+    text-align: center;
+}
+
+/* ====================== */
+/* FLASH MESSAGES */
+/* ====================== */
+.flash {
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+.flash-success {
+    background: #d4f8d4;
+    border-left: 6px solid #2e8b57;
+}
+
+.flash-danger {
+    background: #ffcccc;
+    border-left: 6px solid #cc0000;
+}
