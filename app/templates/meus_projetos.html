@@ -4,19 +4,44 @@
 {% block content %}
 
 <div class="pagina">
+
     <h1 class="titulo-principal">Meus Projetos</h1>
 
     {% if projetos %}
         {% for p in projetos %}
             <div class="project-card">
 
+                <!-- Título + botão -->
                 <div class="project-header">
                     <div class="project-title">{{ p.titulo }}</div>
                     <a class="btn-view">Visualizar</a>
                 </div>
 
+                <!-- Detalhes -->
                 <div class="project-body">
-                    <div><strong>Orientador:</strong> {{ p.orientador }}</div>
+
+                    <div>
+                        <strong>Orientador:</strong> {{ p.orientador.nome }}
+                    </div>
+
+                    {% if p.estudantes %}
+                        <div>
+                            <strong>Estudantes:</strong>
+                            {% for aluno in p.estudantes %}
+                                {{ aluno.nome }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    {% if p.coorientadores %}
+                        <div>
+                            <strong>Coorientadores:</strong>
+                            {% for co in p.coorientadores %}
+                                {{ co.nome }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
                 </div>
 
             </div>

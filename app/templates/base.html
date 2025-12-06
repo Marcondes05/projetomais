@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>{% block title %}Projetomais{% endblock %}</title>
 
+    <!-- CSS principal -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
@@ -12,19 +14,23 @@
 
     <!-- NAVBAR -->
     <nav class="navbar">
+        <a href="{{ url_for('main.home') }}"><b>Projetomais</b></a>
 
-        <!-- Nome do sistema leva para a HOME -->
-        <a href="{{ url_for('main.home') }}" style="font-weight:bold; margin-right:20px;">
-            Projetomais
-        </a>
-
-        <!-- Link correto para lista de projetos -->
         <a href="{{ url_for('project.lista_projetos') }}">Projetos</a>
 
         {% if current_user.is_authenticated %}
-            <a href="{{ url_for('user.meus_projetos') }}">Meus Projetos</a>
+            
+            <!-- MOSTRAR APENAS PARA DOCENTES -->
+            {% if current_user.tipo == "docente" %}
+                <a href="{{ url_for('project.novo_projeto') }}">Cadastrar Projeto</a>
+            {% endif %}
+
+            <!-- TODOS LOGADOS -->
+            <a href="{{ url_for('project.meus_projetos') }}">Meus Projetos</a>
             <a href="{{ url_for('user.perfil') }}">Perfil</a>
+
             <a href="{{ url_for('auth.logout') }}" style="margin-left:auto;">Sair</a>
+
         {% else %}
             <span style="margin-left:auto;"></span>
             <a href="{{ url_for('auth.login') }}">Login</a>
@@ -43,10 +49,28 @@
         {% endwith %}
     </div>
 
+    <!-- MAIN CONTENT -->
     <main>
         {% block content %}
         {% endblock %}
     </main>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/autocomplete.js') }}"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        if (document.querySelector("#input-estudantes")) {
+            setupAutocomplete("input-estudantes", "estudantes_ids", "estudantes_badges");
+        }
+        if (document.querySelector("#input-coorientadores")) {
+            setupAutocomplete("input-coorientadores", "coorientadores_ids", "coor_badges");
+        }
+        if (document.querySelector("#input-orientador")) {
+            setupAutocomplete("input-orientador", "orientador_id", "orientador_badges");
+        }
+    });
+    </script>
 
 </body>
 </html>

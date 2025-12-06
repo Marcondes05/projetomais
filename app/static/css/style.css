@@ -205,3 +205,76 @@ body {
     background: #ffcccc;
     border-left: 6px solid #cc0000;
 }
+.badges-container { margin-top: 8px; }
+.badge-chip { display:inline-block; padding:6px 8px; border-radius:6px; background:#e8f5e9; margin-right:8px; margin-top:6px; }
+.autocomplete-dropdown { font-size:14px; }
+.autocomplete-row:hover { background:#007bff; color:#fff; }
+/* CENTRALIZA O CARD DO FORM */
+.form-projeto {
+    width: 500px;
+    margin: auto;
+}
+
+/* BADGES */
+.tag {
+    display: inline-block;
+    background: #005026;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin: 4px;
+    font-size: 14px;
+}
+
+.tag button {
+    margin-left: 8px;
+    border: none;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* DROPDOWN */
+.dropdown-list {
+    border-radius: 6px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.2);
+}
+
+.dropdown-item:hover {
+    background: #e6f2e7;
+}
+.autocomplete-box {
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-top: 4px;
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+}
+
+.autocomplete-item {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.autocomplete-item:hover {
+    background: #e8f5e9;
+}
+
+.badge-user {
+    background: #005026;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+    margin: 3px;
+    display: inline-block;
+}
+
+.badge-user .remove-btn {
+    margin-left: 5px;
+    background: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+}

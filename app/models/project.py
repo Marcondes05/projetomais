@@ -1,51 +1,28 @@
 from app import db
-from datetime import datetime
 
-# Tabela N:N para estudantes
-projeto_estudantes = db.Table(
-    "projeto_estudantes",
-    db.Column("id", db.Integer, primary_key=True),
-    db.Column("projeto_id", db.Integer, db.ForeignKey("projetos.id")),
-    db.Column("estudante_id", db.Integer, db.ForeignKey("usuarios.id")),
+project_students = db.Table('project_students',
+    db.Column('project_id', db.Integer, db.ForeignKey('projects.id'), primary_key=True),
+    db.Column('student_id', db.Integer, db.ForeignKey('usuarios.id'), primary_key=True)
 )
 
-# Tabela N:N para coorientadores
-projeto_coorientadores = db.Table(
-    "projeto_coorientadores",
-    db.Column("id", db.Integer, primary_key=True),
-    db.Column("projeto_id", db.Integer, db.ForeignKey("projetos.id")),
-    db.Column("coorientador_id", db.Integer, db.ForeignKey("usuarios.id")),
+project_coorientadores = db.Table('project_coorientadores',
+    db.Column('project_id', db.Integer, db.ForeignKey('projects.id'), primary_key=True),
+    db.Column('coorientador_id', db.Integer, db.ForeignKey('usuarios.id'), primary_key=True)
 )
 
 class Project(db.Model):
-    __tablename__ = "projetos"
-
+    __tablename__ = "projects"
     id = db.Column(db.Integer, primary_key=True)
-    titulo = db.Column(db.String(200), nullable=False)
-    resumo = db.Column(db.Text, nullable=True)
-    edital = db.Column(db.String(50), nullable=False)
-    tipo = db.Column(db.String(30), nullable=False)
-    ano = db.Column(db.Integer, nullable=False)
-    bolsa = db.Column(db.String(50), nullable=True)
-    data_criacao = db.Column(db.DateTime, default=datetime.utcnow)
-
-    orientador_id = db.Column(db.Integer, db.ForeignKey("usuarios.id"), nullable=False)
-
-    # N:N com estudantes
-    estudantes = db.relationship(
-        "User",
-        secondary=projeto_estudantes,
-        backref="projetos_participados",
-        lazy="dynamic"
-    )
-
-    # N:N com coorientadores
-    coorientadores = db.relationship(
-        "User",
-        secondary=projeto_coorientadores,
-        backref="projetos_coorientados",
-        lazy="dynamic"
-    )
+    titulo = db.Column(db.String(255), nullable=False)
+    resumo = db.Column(db.Text)
+    tipo = db.Column(db.String(50))
+    edital = db.Column(db.String(120))
+    ano = db.Column(db.String(10))
+    financiador = db.Column(db.String(120))   # <- nome que usamos no form
+    orientador_id = db.Column(db.Integer, db.ForeignKey("usuarios.id"))
+    orientador = db.relationship("User", foreign_keys=[orientador_id])
+    estudantes = db.relationship("User", secondary=project_students, backref="projetos_estudante")
+    coorientadores = db.relationship("User", secondary=project_coorientadores, backref="projetos_coorientador")
 
     def __repr__(self):
-        return f"<Project {self.titulo}>"
+        return f"<Project {self.id} {self.titulo}>"

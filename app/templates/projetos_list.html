@@ -7,7 +7,7 @@
 
     <h1 class="titulo-principal">Projetos Cadastrados</h1>
 
-    <!-- FILTROS -->
+    <!-- FILTROS (ainda estáticos por enquanto) -->
     <div class="filter-box">
         <input type="text" placeholder="Buscar por título..." class="input-text">
 
@@ -22,28 +22,53 @@
             <option>Ano</option>
             <option>2024</option>
             <option>2023</option>
+            <option>2022</option>
         </select>
 
         <button class="btn-filtrar">Filtrar</button>
     </div>
 
-    <!-- LISTAGEM -->
+    <!-- LISTAGEM DE PROJETOS -->
     {% if projetos %}
         {% for p in projetos %}
             <div class="project-card">
 
+                <!-- Cabeçalho -->
                 <div class="project-header">
                     <div class="project-title">{{ p.titulo }}</div>
-                    <a class="btn-view">Visualizar</a>
+
+                    <!-- Botão visualizar (a rota ainda criaremos mais tarde) -->
+                    <a class="btn-view" href="#">Visualizar</a>
                 </div>
 
+                <!-- Corpo -->
                 <div class="project-body">
-                    <div><strong>Aluno:</strong> {{ p.aluno }}</div>
-                    <div><strong>Orientador:</strong> {{ p.orientador }} · <strong>Ano:</strong> {{ p.ano }}</div>
+
+                    <!-- Lista de alunos -->
+                    <div>
+                        <strong>Alunos:</strong>
+                        {% if p.estudantes %}
+                            {% for aluno in p.estudantes %}
+                                {{ aluno.nome }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            Nenhum aluno vinculado
+                        {% endif %}
+                    </div>
+
+                    <!-- Orientador -->
+                    <div>
+                        <strong>Orientador:</strong> 
+                        {{ p.orientador.nome }}
+                        &nbsp;·&nbsp;
+                        <strong>Ano:</strong> {{ p.ano }}
+                    </div>
+
                 </div>
 
             </div>
         {% endfor %}
+        
     {% else %}
 
         <p>Nenhum projeto encontrado.</p>
