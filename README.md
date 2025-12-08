@@ -1,108 +1,178 @@
-📘 Projetomais – Sistema de Gestão de Projetos Acadêmicos (IFTM)
-🗓️ Status do Desenvolvimento – Atualizado após conclusão da Etapa 3
-✅ O que já está pronto
+Perfeito — vou gerar agora **o README da Etapa 4**, seguindo exatamente o mesmo padrão das etapas anteriores:
+✔ resumo técnico
+✔ funcionalidades implementadas
+✔ melhorias visuais
+✔ correções estruturais
+✔ o que será feito na próxima etapa
 
-As três primeiras etapas do planejamento foram totalmente concluídas, assegurando a fundação do sistema e garantindo uma base sólida para o restante do desenvolvimento.
+---
 
-🟢 ETAPA 0 — Setup Inicial (Concluída)
+# 📘 **README — Etapa 4: CRUD Completo de Projetos + Autocomplete Finalizado**
 
-✔ Estrutura do projeto criada:
-app/, models/, routes/, templates/, static/, utils/
+## 🎯 **Objetivo da Etapa**
 
-✔ Configuração de ambiente (.env, config.py)
-✔ Conexão funcional com o banco Supabase (PostgreSQL)
-✔ App Flask executando com sucesso
-✔ Repositório GitHub organizado
+Implementar o módulo completo de gestão de projetos (CRUD), acessível apenas para docentes, incluindo:
 
-🟢 ETAPA 1 — Planejamento e Arquitetura (Concluída)
+* Criar projeto
+* Editar projeto
+* Excluir projeto (com confirmação)
+* Visualizar detalhes
+* Associar estudantes
+* Associar coorientadores
+* Autocomplete funcional e elegante
+* Restrições de permissão por tipo de usuário
+* Melhorias de interface e navegação
 
-✔ Definição das entidades (usuário, projeto e relações N:N)
-✔ Definição das regras de negócio
-✔ Perfis de usuário definidos: discente e docente
-✔ Domínio institucional configurando o tipo automaticamente
-✔ Modelo relacional definido
-✔ Estrutura de pastas e fluxo de rotas planejados
+---
 
-🟢 ETAPA 2 — Banco de Dados e Models (Concluída)
+# ✅ **Funcionalidades Implementadas na Etapa 4**
 
-✔ Model User implementado
-✔ Model Project implementado (estrutura base para CRUD futuro)
-✔ Tabelas auxiliares de relacionamento criadas
-✔ Banco sincronizado com SQLAlchemy
-✔ Inserção e leitura de dados testadas com sucesso
+## **1. CRUD Completo de Projetos (Docentes)**
 
-🟢 ETAPA 3 — Sistema de Usuários (Concluída)
+Foram implementadas e testadas as rotas:
 
-Toda autenticação e fluxo de usuário está pronto e funcional:
+### 🔹 Criar Projeto
 
-✔ Autenticação completa:
+* Campos principais: título, resumo, tipo, edital, ano, financiador
+* Seleção do orientador (caso não queira usar o atual usuário)
+* Seleção de estudantes
+* Seleção de coorientadores
+* Salvamento no Supabase via SQLAlchemy
 
-Login
+### 🔹 Editar Projeto
 
-Logout
+* Permite alterar todos os campos
+* Permite adicionar/remover alunos
+* Permite adicionar/remover coorientadores
+* Permite trocar orientador
+* Sistema atualiza corretamente as tabelas associativas
 
-Registro
+### 🔹 Excluir Projeto
 
-Carregamento de sessão
+* Tela de confirmação criada
+* Exclusão só permitida ao orientador
+* Proteção contra exclusão indevida
 
-Proteção de rotas
+### 🔹 Visualizar Projeto
 
-✔ Validação automática por domínio institucional:
+* Página com informações completas
+* Lista estudantes
+* Lista coorientadores
+* Lista orientador
+* Botões de editar e excluir só aparecem para docentes orientadores
+* Adicionado botão “Voltar”, retornando à tela anterior
 
-@estudante.iftm.edu.br → discente
+---
 
-@iftm.edu.br → docente
+# 🎨 **2. Autocomplete PROFISSIONAL**
 
-✔ Templates totalmente estilizados (conforme o artigo):
+O maior avanço da etapa.
 
-login.html
+Implementado autocomplete:
 
-register.html
+* totalmente funcional
+* rápido (debounce)
+* busca no Supabase
+* exibe lista logo abaixo do input
+* suporta seleção única (orientador)
+* suporta seleção múltipla (alunos e coorientadores)
+* badges removíveis
+* X funcionando perfeitamente
+* estilização coerente com o sistema
+* sem erros no console
+* sem conflito entre inputs
 
-perfil.html
+Agora o formulário está ao nível de um sistema real profissional.
 
-home.html
+---
 
-✔ Navbar funcional e responsiva
-✔ Mensagens flash integradas
-✔ Páginas organizadas com CSS padrão IFTM
-✔ Estrutura limpa e coerente para continuar o desenvolvimento
-🚀 PRÓXIMA ETAPA — ETAPA 4: CRUD de Projetos
+# 🔐 **3. Regras de Acesso (Autorização por tipo de usuário)**
 
-Agora que o sistema está autenticando corretamente os usuários e registrando seus perfis, vamos iniciar a parte mais importante do sistema:
+Implementado e revisado:
 
-🎯 Objetivo da Etapa 4
+| Ação            | Discente              | Docente                              |
+| --------------- | --------------------- | ------------------------------------ |
+| Criar projeto   | ❌                     | ✔                                    |
+| Editar projeto  | ❌                     | ✔ somente se for orientador          |
+| Excluir projeto | ❌                     | ✔ somente se for orientador          |
+| Ver detalhes    | ✔ se aluno do projeto | ✔ todos os orientados / coorientados |
+| Meus projetos   | ✔                     | ✔                                    |
 
-Criar todas as funcionalidades para manipular projetos acadêmicos.
+Rota com `@role_required("docente")` implementada nas áreas críticas.
 
-📝 Tarefas da Etapa 4:
+Testado e validado.
 
-Criar formulário completo de cadastro de projeto
+---
 
-Validar acesso (somente docentes podem criar/editar)
+# 🔧 **4. Correções e Ajustes Realizados**
 
-Criar página de listagem Todos os Projetos
+* Corrigido erros de template (`url_for` com nomes errados)
+* Organizado `base.html` com includes (`navbar` e `flash`)
+* Criado botão global “Voltar para Home” nas páginas internas
+* Ajustado CSS para dropdown aparecer **logo abaixo do campo**
+* Limpado duplicações de código
+* Padronizado `.badge-item`
+* Revisado JavaScript do autocomplete (App namespace, fallback, etc.)
 
-Criar página Meus Projetos
+Tudo funcionando sem erros.
 
-Criar página de detalhes do projeto
+---
 
-Implementar edição e exclusão
+# 🧪 **5. Testes Realizados**
 
-Integrar alunos e coorientadores ao projeto
+* Criado projeto com 1 aluno
+* Criado projeto com vários alunos
+* Adicionado e removido alunos (badge ok)
+* Troca de orientador
+* Exclusão segura testada
+* Discente não consegue editar nem acessar área de docente
+* Navegação funcionando
 
-Preparar autocomplete simples para usuários
+**Resultado:** Etapa 4 concluída com sucesso.
 
-Adaptar tudo ao estilo visual já aplicado
+---
 
-🧱 Status Geral Atual
+# 🚀 **Próxima Etapa — ETAPA 5: Módulo de Listagem e Filtros**
 
-O sistema tem:
+Esta será uma etapa mais visual e organizacional.
 
-✔ Auth funcional
-✔ Estrutura de navegação pronta
-✔ Modelos base funcionando
-✔ Estilo visual padronizado
-✔ Banco conectado e sincronizado
+## **O que será implementado:**
 
-O ambiente está 100% pronto para iniciar o desenvolvimento do módulo principal: gestão de projetos.
+### 🟢 **1. Página "Projetos" com filtros reais**
+
+* Filtro por título
+* Filtro por ano
+* Filtro por tipo
+* Filtro por edital
+* Filtro por orientador
+* Combinação de filtros simultâneos
+* Ordenação (mais recentes primeiro)
+
+### 🟢 **2. “Meus Projetos” melhorado**
+
+* Exibir mais informações
+* Possível filtro básico (opcional)
+
+### 🟢 **3. Ajustes de UI/UX**
+
+* Melhorar layout dos cards
+* Melhor spacing
+* Ícones visuais
+* Paleta IFTM mais refinada
+
+---
+
+# 📌 **Conclusão**
+
+A etapa 4 era a **mais complexa do sistema** — e agora está pronta, estável e profissional.
+
+Você já possui:
+
+✔ CRUD completo
+✔ Autocomplete funcional
+✔ Permissões funcionando
+✔ UI coerente
+✔ Base sólida para a Etapa 5
+
+---
+

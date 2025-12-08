@@ -2,22 +2,78 @@
 {% block title %}Meus Projetos{% endblock %}
 
 {% block content %}
-
 <div class="pagina">
 
     <h1 class="titulo-principal">Meus Projetos</h1>
 
+    <!-- ===========================
+         FILTROS
+    ============================ -->
+    <form method="GET" action="{{ url_for('project.meus_projetos') }}">
+        <div class="filter-box">
+
+            <!-- TÍTULO -->
+            <input type="text" name="titulo" class="input-text"
+                   placeholder="Buscar por título..."
+                   value="{{ filtros.titulo }}">
+
+            <!-- TIPO -->
+            <select name="tipo" class="input-select">
+                <option value="todos">Todos os tipos</option>
+                <option value="Pesquisa" {% if filtros.tipo == 'Pesquisa' %}selected{% endif %}>Pesquisa</option>
+                <option value="Ensino" {% if filtros.tipo == 'Ensino' %}selected{% endif %}>Ensino</option>
+                <option value="Extensão" {% if filtros.tipo == 'Extensão' %}selected{% endif %}>Extensão</option>
+            </select>
+
+            <!-- ANO (DIGITÁVEL) -->
+            <input type="text" name="ano" class="input-text"
+                   placeholder="Ano..."
+                   value="{{ filtros.ano }}"
+                   style="width:90px;">
+
+            <!-- EDITAL -->
+            <input type="text" name="edital" class="input-text"
+                   placeholder="Edital..."
+                   value="{{ filtros.edital }}">
+
+            <!-- ORIENTADOR (AUTOCOMPLETE) -->
+            <div class="autocomplete-wrapper" style="width:200px;">
+                <input id="input-orientador-meus"
+                       class="input-text"
+                       autocomplete="off"
+                       placeholder="Orientador...">
+                <div id="orientador_autocomplete_meus" class="autocomplete-box"></div>
+            </div>
+
+            <input type="hidden" name="orientador"
+                   id="orientador_id_meus" value="{{ filtros.orientador }}">
+
+            <button class="btn-filtrar" type="submit">Filtrar</button>
+
+            {% if filtros.titulo or filtros.tipo not in ['', 'todos'] or filtros.ano or filtros.edital or filtros.orientador %}
+            <a href="{{ url_for('project.meus_projetos') }}"
+               class="btn-filtrar"
+               style="background:#7a0000;">
+               Limpar
+            </a>
+            {% endif %}
+        </div>
+    </form>
+
+    <!-- ===========================
+         LISTAGEM DOS PROJETOS
+    ============================ -->
     {% if projetos %}
         {% for p in projetos %}
             <div class="project-card">
-
-                <!-- Título + botão -->
                 <div class="project-header">
                     <div class="project-title">{{ p.titulo }}</div>
-                    <a class="btn-view">Visualizar</a>
+                    <a class="btn-view"
+                       href="{{ url_for('project.ver_projeto', project_id=p.id) }}">
+                        Visualizar
+                    </a>
                 </div>
 
-                <!-- Detalhes -->
                 <div class="project-body">
 
                     <div>
@@ -25,30 +81,44 @@
                     </div>
 
                     {% if p.estudantes %}
-                        <div>
-                            <strong>Estudantes:</strong>
-                            {% for aluno in p.estudantes %}
-                                {{ aluno.nome }}{% if not loop.last %}, {% endif %}
-                            {% endfor %}
-                        </div>
+                    <div>
+                        <strong>Estudantes:</strong>
+                        {% for aluno in p.estudantes %}
+                            {{ aluno.nome }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </div>
                     {% endif %}
 
                     {% if p.coorientadores %}
-                        <div>
-                            <strong>Coorientadores:</strong>
-                            {% for co in p.coorientadores %}
-                                {{ co.nome }}{% if not loop.last %}, {% endif %}
-                            {% endfor %}
-                        </div>
+                    <div>
+                        <strong>Coorientadores:</strong>
+                        {% for co in p.coorientadores %}
+                            {{ co.nome }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </div>
                     {% endif %}
 
-                </div>
+                    <div>
+                        <strong>Ano:</strong> {{ p.ano }}
+                    </div>
 
+                </div>
             </div>
         {% endfor %}
     {% else %}
-        <p>Você não possui projetos vinculados.</p>
+        <p>Nenhum projeto encontrado com os filtros aplicados.</p>
     {% endif %}
 </div>
+
+<!-- ===========================
+     AUTOCOMPLETE FILTRO
+=========================== -->
+<script>
+App.setupAutocompleteFiltro(
+    "input-orientador-meus",
+    "orientador_id_meus",
+    "orientador_autocomplete_meus"
+);
+</script>
 
 {% endblock %}

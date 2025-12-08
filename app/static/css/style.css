@@ -1,15 +1,15 @@
-/* ====================== */
-/* ESTILO GERAL */
-/* ====================== */
+/* ======================
+   ESTILO GERAL
+====================== */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
     background: #f3f3f3;
 }
 
-/* ====================== */
-/* NAVBAR */
-/* ====================== */
+/* ======================
+   NAVBAR
+====================== */
 .navbar {
     background: #005026;
     padding: 14px 25px;
@@ -24,14 +24,14 @@ body {
     font-weight: bold;
     font-size: 15px;
 }
+
 .navbar a:hover {
     text-decoration: underline;
 }
 
-/* ====================== */
-/* HOME / LISTAGEM */
-/* ====================== */
-
+/* ======================
+   PÁGINA DE LISTAGEM
+====================== */
 .pagina {
     background: #f0f2f0;
     padding: 30px 40px;
@@ -44,7 +44,7 @@ body {
     margin-bottom: 20px;
 }
 
-/* Filtros */
+/* Filtros (por enquanto estáticos) */
 .filter-box {
     background: #e8f5e9;
     padding: 15px;
@@ -54,7 +54,7 @@ body {
     margin-bottom: 25px;
 }
 
-.input-text, 
+.input-text,
 .input-select {
     padding: 8px 10px;
     border-radius: 6px;
@@ -69,11 +69,14 @@ body {
     padding: 8px 15px;
     cursor: pointer;
 }
+
 .btn-filtrar:hover {
     background: #006837;
 }
 
-/* Card dos projetos */
+/* ======================
+   CARD DOS PROJETOS
+====================== */
 .project-card {
     background: white;
     border-radius: 10px;
@@ -103,6 +106,7 @@ body {
     text-decoration: none;
     font-size: 14px;
 }
+
 .btn-view:hover {
     background: #007a3d;
 }
@@ -113,10 +117,9 @@ body {
     color: #333;
 }
 
-/* ====================== */
-/* FORMULÁRIOS (LOGIN, REGISTRO, PERFIL) */
-/* ====================== */
-
+/* ======================
+   FORMULÁRIOS
+====================== */
 .pagina-central {
     background: #f0f2f0;
     width: 100%;
@@ -126,10 +129,9 @@ body {
     align-items: center;
 }
 
-.form-card, 
-.perfil-card {
-    background: #ffffff;
-    width: 420px;
+.form-card {
+    background: #fff;
+    width: 480px;
     padding: 28px 32px;
     border-radius: 12px;
     box-shadow: 0 0 12px rgba(0,0,0,0.15);
@@ -156,7 +158,6 @@ body {
     color: #003818;
 }
 
-/* Botão principal */
 .btn-primary {
     width: 100%;
     padding: 12px;
@@ -167,28 +168,14 @@ body {
     font-weight: bold;
     cursor: pointer;
 }
+
 .btn-primary:hover {
     background: #007a3d;
 }
 
-/* Links */
-.link {
-    color: #005026;
-    text-decoration: none;
-    font-weight: bold;
-}
-.link:hover {
-    text-decoration: underline;
-}
-
-.text-small {
-    margin-top: 12px;
-    text-align: center;
-}
-
-/* ====================== */
-/* FLASH MESSAGES */
-/* ====================== */
+/* ======================
+   FLASH MESSAGES
+====================== */
 .flash {
     padding: 10px;
     border-radius: 6px;
@@ -205,76 +192,152 @@ body {
     background: #ffcccc;
     border-left: 6px solid #cc0000;
 }
-.badges-container { margin-top: 8px; }
-.badge-chip { display:inline-block; padding:6px 8px; border-radius:6px; background:#e8f5e9; margin-right:8px; margin-top:6px; }
-.autocomplete-dropdown { font-size:14px; }
-.autocomplete-row:hover { background:#007bff; color:#fff; }
-/* CENTRALIZA O CARD DO FORM */
-.form-projeto {
-    width: 500px;
-    margin: auto;
+
+/* ======================
+   AUTOCOMPLETE + BADGES
+====================== */
+
+.autocomplete-wrapper {
+    position: relative;
+    width: 100%;
 }
 
-/* BADGES */
-.tag {
-    display: inline-block;
-    background: #005026;
-    color: white;
-    padding: 6px 10px;
-    border-radius: 6px;
-    margin: 4px;
-    font-size: 14px;
-}
-
-.tag button {
-    margin-left: 8px;
-    border: none;
-    background: transparent;
-    color: #fff;
-    cursor: pointer;
-}
-
-/* DROPDOWN */
-.dropdown-list {
-    border-radius: 6px;
-    box-shadow: 0 0 4px rgba(0,0,0,0.2);
-}
-
-.dropdown-item:hover {
-    background: #e6f2e7;
-}
 .autocomplete-box {
+    position: absolute;
     background: white;
     border: 1px solid #ccc;
     border-radius: 6px;
-    margin-top: 4px;
-    position: absolute;
-    z-index: 10;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    z-index: 9999;
+    display: none;
+    max-height: 240px;
+    overflow-y: auto;
     width: 100%;
 }
 
 .autocomplete-item {
-    padding: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.autocomplete-item:hover,
+.autocomplete-item.active {
+    background: #e6f5e7;
+}
+
+.badge-box {
+    margin-top: 6px;
+}
+
+.badge-item {
+    display: inline-block;
+    background: #005026;
+    color: white;
+    font-size: 13px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin: 4px 4px;
+}
+
+.badge-remove {
+    border: none;
+    background: transparent;
+    color: #ffdddd;
+    font-weight: bold;
+    margin-left: 6px;
+    cursor: pointer;
+}
+.autocomplete-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.autocomplete-box {
+    position: absolute !important;
+    top: 100%;                /* aparece logo abaixo do input */
+    left: 0;
+    width: 100%;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-top: 4px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    z-index: 9999;
+    display: none;
+    max-height: 220px;
+    overflow-y: auto;
+}
+.autocomplete-item {
+    padding: 10px;
     cursor: pointer;
 }
 
+.autocomplete-item.active,
 .autocomplete-item:hover {
-    background: #e8f5e9;
+    background: #e6f5e7;
+}
+.btn-voltar {
+    display: inline-block;
+    background: #004d26;
+    color: white;
+    padding: 8px 16px;
+    font-size: 15px;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-bottom: 15px;
 }
 
-.badge-user {
-    background: #005026;
+.btn-voltar:hover {
+    background: #006837;
+}
+.btn-voltar-container {
+    width: 100%;
+    padding-left: 40px;
+    margin-top: 15px;
+}
+
+.btn-voltar-home {
+    background: #004d26;
     color: white;
-    padding: 4px 8px;
+    padding: 8px 18px;
+    text-decoration: none;
     border-radius: 6px;
-    margin: 3px;
+    font-size: 15px;
     display: inline-block;
 }
 
-.badge-user .remove-btn {
-    margin-left: 5px;
-    background: red;
+.btn-voltar-home:hover {
+    background: #006837;
+}
+.filter-box {
+    background: #e8f5e9;
+    padding: 12px;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 25px;
+}
+
+.filter-box .input-text,
+.filter-box .input-select {
+    min-width: 150px;
+}
+
+.filter-box .btn-filtrar {
+    background: #005026;
     color: white;
     border: none;
+    padding: 8px 18px;
+    border-radius: 6px;
     cursor: pointer;
+}
+
+.filter-box .btn-filtrar:hover {
+    background: #007c3a;
+}
+.input-ano {
+    width: 80px !important;
+    text-align: center;
 }

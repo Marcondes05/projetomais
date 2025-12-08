@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Projeto - {{ projeto.titulo }}{% endblock %}
+
+{% block content %}
+<div class="pagina">
+
+    <a href="{{ request.referrer or url_for('project.lista_projetos') }}" class="btn-voltar">
+        ⬅ Voltar
+    </a>
+
+    <h1 class="titulo-principal">{{ projeto.titulo }}</h1>
+
+    <div class="project-card">
+        <div class="project-body">
+            <p><strong>Resumo:</strong> {{ projeto.resumo }}</p>
+            <p><strong>Tipo:</strong> {{ projeto.tipo }}</p>
+            <p><strong>Edital:</strong> {{ projeto.edital }}</p>
+            <p><strong>Ano:</strong> {{ projeto.ano }}</p>
+            <p><strong>Financiador:</strong> {{ projeto.financiador }}</p>
+
+            <p><strong>Orientador:</strong> {{ projeto.orientador.nome }}</p>
+
+            <p><strong>Estudantes:</strong>
+                {% if projeto.estudantes %}
+                    {% for e in projeto.estudantes %}
+                        {{ e.nome }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                {% else %}
+                    Nenhum
+                {% endif %}
+            </p>
+
+            <p><strong>Coorientadores:</strong>
+                {% if projeto.coorientadores %}
+                    {% for c in projeto.coorientadores %}
+                        {{ c.nome }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                {% else %}
+                    Nenhum
+                {% endif %}
+            </p>
+        </div>
+    </div>
+
+    {% if current_user.id == projeto.orientador_id %}
+        <a href="{{ url_for('project.editar_projeto', project_id=projeto.id) }}" class="btn-view">Editar Projeto</a>
+        <a href="{{ url_for('project.confirmar_exclusao', project_id=projeto.id) }}" class="btn-view" style="background:#a30000;">Excluir Projeto</a>
+    {% endif %}
+</div>
+{% endblock %}

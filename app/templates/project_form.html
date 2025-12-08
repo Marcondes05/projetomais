@@ -2,61 +2,86 @@
 {% block title %}Cadastrar Projeto{% endblock %}
 
 {% block content %}
-
 <div class="pagina-central">
+    <div class="form-card form-projeto">
 
-<div class="form-card form-projeto">
+        <h1 class="form-title">Cadastrar Novo Projeto</h1>
 
-    <h1 class="form-title">Cadastrar Novo Projeto</h1>
+        <form method="POST" action="{{ url_for('project.salvar_projeto') }}">
 
-    <form method="POST" action="{{ url_for('project.salvar_projeto') }}">
+            <label class="label">Título</label>
+            <input type="text" name="titulo" class="input-field" required>
 
-        <label class="label">Título</label>
-        <input type="text" name="titulo" class="input-field" required>
+            <label class="label">Resumo</label>
+            <textarea name="resumo" rows="4" class="input-field" required></textarea>
 
-        <label class="label">Resumo</label>
-        <textarea name="resumo" rows="4" class="input-field" required></textarea>
+            <label class="label">Tipo</label>
+            <select name="tipo" class="input-field">
+                <option>Pesquisa</option>
+                <option>Ensino</option>
+                <option>Extensão</option>
+            </select>
 
-        <label class="label">Tipo</label>
-        <select name="tipo" class="input-field">
-            <option>Pesquisa</option>
-            <option>Ensino</option>
-            <option>Extensão</option>
-        </select>
+            <label class="label">Edital</label>
+            <input type="text" name="edital" class="input-field">
 
-        <label class="label">Edital</label>
-        <input type="text" name="edital" class="input-field">
+            <label class="label">Ano</label>
+            <input type="number" name="ano" class="input-field" required>
 
-        <label class="label">Ano</label>
-        <input type="number" name="ano" class="input-field" required>
+            <label class="label">Financiador</label>
+            <input type="text" name="financiador" class="input-field">
 
-        <label class="label">Financiador</label>
-        <input type="text" name="financiador" class="input-field">
+            <!-- ORIENTADOR -->
+            <label class="label">Orientador</label>
+            <div class="autocomplete-wrapper">
+                <input id="input-orientador" class="input-field" autocomplete="off">
+                <div id="orientador_autocomplete" class="autocomplete-box"></div>
+            </div>
+            <input type="hidden" id="orientador_id" name="orientador_id">
+            <div id="orientador_badges" class="badge-box"></div>
 
-        <!-- ORIENTADOR -->
-        <label class="label">Orientador</label>
-        <input id="input-orientador" class="input-field" placeholder="Digite para buscar...">
-        <input type="hidden" id="orientador_id" name="orientador_id">
-        <div id="orientador_badges"></div>
+            <!-- ESTUDANTES -->
+            <label class="label">Estudantes</label>
+            <div class="autocomplete-wrapper">
+                <input id="input-estudantes" class="input-field" autocomplete="off">
+                <div id="estudantes_autocomplete" class="autocomplete-box"></div>
+            </div>
+            <input type="hidden" id="estudantes_ids" name="estudantes_ids">
+            <div id="estudantes_badges" class="badge-box"></div>
 
-        <!-- ESTUDANTES -->
-        <label class="label">Estudantes</label>
-        <input id="input-estudantes" class="input-field" autocomplete="off" placeholder="Digite para buscar...">
-        <input type="hidden" id="estudantes_ids" name="estudantes_ids">
-        <div id="estudantes_badges" class="badge-box"></div>
+            <!-- COORIENTADORES -->
+            <label class="label">Coorientadores</label>
+            <div class="autocomplete-wrapper">
+                <input id="input-coorientadores" class="input-field" autocomplete="off">
+                <div id="coorientadores_autocomplete" class="autocomplete-box"></div>
+            </div>
+            <input type="hidden" id="coorientadores_ids" name="coorientadores_ids">
+            <div id="coor_badges" class="badge-box"></div>
 
-        <!-- COORIENTADORES -->
-        <label class="label">Coorientadores</label>
-        <input id="input-coorientadores" class="input-field" autocomplete="off" placeholder="Digite para buscar...">
-        <input type="hidden" id="coorientadores_ids" name="coorientadores_ids">
-        <div id="coor_badges" class="badge-box"></div>
-
-        <button class="btn-primary" type="submit">Salvar Projeto</button>
-    </form>
-
+            <button class="btn-primary">Salvar</button>
+        </form>
+    </div>
 </div>
 
-</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
 
+    App.setupAutocomplete("input-orientador", "orientador_id", "orientador_badges", {
+        single: true,
+        box: "orientador_autocomplete"
+    });
+
+    App.setupAutocomplete("input-estudantes", "estudantes_ids", "estudantes_badges", {
+        single: false,
+        box: "estudantes_autocomplete"
+    });
+
+    App.setupAutocomplete("input-coorientadores", "coorientadores_ids", "coor_badges", {
+        single: false,
+        box: "coorientadores_autocomplete"
+    });
+
+});
+</script>
 
 {% endblock %}

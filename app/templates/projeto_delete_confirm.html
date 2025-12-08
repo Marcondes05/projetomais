@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Excluir Projeto{% endblock %}
+
+{% block content %}
+<div class="pagina-central">
+  <div class="form-card">
+    <h2 class="form-title">Excluir Projeto</h2>
+
+    <p>Tem certeza que deseja excluir o projeto:</p>
+    <p><strong>{{ projeto.titulo }}</strong></p>
+    <p style="color:red;"><strong>Esta ação não pode ser desfeita.</strong></p>
+
+    <form method="POST" action="{{ url_for('project.excluir_projeto', project_id=projeto.id) }}">
+        <button class="btn-primary" style="background:#b30000;" type="submit">Excluir Permanentemente</button>
+    </form>
+
+    <p class="text-small">
+        <a href="{{ url_for('project.ver_projeto', project_id=projeto.id) }}" class="link">Cancelar</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

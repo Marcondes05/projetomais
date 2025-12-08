@@ -3,11 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>{% block title %}Projetomais{% endblock %}</title>
 
-    <!-- CSS principal -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Variáveis globais -->
+    <script>
+        window.SEARCH_USERS_URL = "{{ url_for('project.buscar_usuarios') }}";
+        if (!window.App) window.App = {};  /* namespace global */
+    </script>
+
+    <!-- ⚠️ O AUTOCOMPLETE DEVE VIR ANTES DO CONTEÚDO! -->
+    <script src="{{ url_for('static', filename='js/autocomplete.js') }}?v=1002"></script>
 </head>
 
 <body>
@@ -15,22 +23,15 @@
     <!-- NAVBAR -->
     <nav class="navbar">
         <a href="{{ url_for('main.home') }}"><b>Projetomais</b></a>
-
         <a href="{{ url_for('project.lista_projetos') }}">Projetos</a>
 
         {% if current_user.is_authenticated %}
-            
-            <!-- MOSTRAR APENAS PARA DOCENTES -->
             {% if current_user.tipo == "docente" %}
                 <a href="{{ url_for('project.novo_projeto') }}">Cadastrar Projeto</a>
             {% endif %}
-
-            <!-- TODOS LOGADOS -->
             <a href="{{ url_for('project.meus_projetos') }}">Meus Projetos</a>
             <a href="{{ url_for('user.perfil') }}">Perfil</a>
-
             <a href="{{ url_for('auth.logout') }}" style="margin-left:auto;">Sair</a>
-
         {% else %}
             <span style="margin-left:auto;"></span>
             <a href="{{ url_for('auth.login') }}">Login</a>
@@ -38,39 +39,33 @@
         {% endif %}
     </nav>
 
+    <!-- BOTÃO VOLTAR GLOBAL -->
+    {% if request.endpoint not in [
+        'main.home',
+        'auth.login',
+        'auth.registro',
+        'project.ver_projeto'
+    ] %}
+        <div class="btn-voltar-container">
+            <a href="{{ url_for('main.home') }}" class="btn-voltar-home">⬅ Início</a>
+        </div>
+    {% endif %}
+
     <!-- FLASH MESSAGES -->
     <div class="flash-container">
         {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, msg in messages %}
-                <div class="flash flash-{{ category }}">{{ msg }}</div>
-            {% endfor %}
-        {% endif %}
+            {% if messages %}
+                {% for category, msg in messages %}
+                    <div class="flash flash-{{ category }}">{{ msg }}</div>
+                {% endfor %}
+            {% endif %}
         {% endwith %}
     </div>
 
-    <!-- MAIN CONTENT -->
+    <!-- CONTEÚDO -->
     <main>
-        {% block content %}
-        {% endblock %}
+        {% block content %}{% endblock %}
     </main>
-
-    <!-- Scripts -->
-    <script src="{{ url_for('static', filename='js/autocomplete.js') }}"></script>
-
-    <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        if (document.querySelector("#input-estudantes")) {
-            setupAutocomplete("input-estudantes", "estudantes_ids", "estudantes_badges");
-        }
-        if (document.querySelector("#input-coorientadores")) {
-            setupAutocomplete("input-coorientadores", "coorientadores_ids", "coor_badges");
-        }
-        if (document.querySelector("#input-orientador")) {
-            setupAutocomplete("input-orientador", "orientador_id", "orientador_badges");
-        }
-    });
-    </script>
 
 </body>
 </html>
