@@ -20,9 +20,11 @@ def lista_projetos():
     ano = request.args.get("ano", "").strip()
     edital = request.args.get("edital", "").strip()
     orientador = request.args.get("orientador", "").strip()
+    campus = request.args.get("campus", "").strip()
 
     query = Project.query
 
+    # === FILTROS ===
     if titulo:
         query = query.filter(Project.titulo.ilike(f"%{titulo}%"))
 
@@ -30,13 +32,16 @@ def lista_projetos():
         query = query.filter(Project.tipo == tipo)
 
     if ano and ano.isdigit():
-        query = query.filter(Project.ano == (ano))
+        query = query.filter(Project.ano == ano)
 
     if edital:
         query = query.filter(Project.edital.ilike(f"%{edital}%"))
 
     if orientador.isdigit():
         query = query.filter(Project.orientador_id == int(orientador))
+
+    if campus:
+        query = query.filter(Project.campus == campus)
 
     projetos = query.order_by(Project.id.desc()).all()
 
@@ -48,10 +53,10 @@ def lista_projetos():
             "tipo": tipo,
             "ano": ano,
             "edital": edital,
-            "orientador": orientador
+            "orientador": orientador,
+            "campus": campus
         }
     )
-
 
 
 # ============================================================
@@ -95,6 +100,7 @@ def novo_projeto():
 def salvar_projeto():
 
     orientador_id = request.form.get("orientador_id") or current_user.id
+    orientador = User.query.get(int(orientador_id))
 
     projeto = Project(
         titulo=request.form.get("titulo"),
@@ -103,19 +109,20 @@ def salvar_projeto():
         edital=request.form.get("edital"),
         ano=request.form.get("ano"),
         financiador=request.form.get("financiador"),
-        orientador_id=orientador_id
+        orientador_id=orientador.id,
+        campus=orientador.campus  # <<< HERDANDO CAMPUS
     )
 
     db.session.add(projeto)
     db.session.commit()
 
-    # Estudantes
+    # estudantes
     estudantes_ids = request.form.get("estudantes_ids", "")
     if estudantes_ids.strip():
         ids = [int(i) for i in estudantes_ids.split(",") if i.isdigit()]
         projeto.estudantes = User.query.filter(User.id.in_(ids)).all()
 
-    # Coorientadores
+    # coorientadores
     coor_ids = request.form.get("coorientadores_ids", "")
     if coor_ids.strip():
         ids = [int(i) for i in coor_ids.split(",") if i.isdigit()]
@@ -127,6 +134,7 @@ def salvar_projeto():
     return redirect(url_for("project.lista_projetos"))
 
 
+
 # ============================================================
 # MEUS PROJETOS
 # ============================================================
@@ -134,18 +142,18 @@ def salvar_projeto():
 @login_required
 def meus_projetos():
 
-    # --- Recebendo filtros ---
     filtros = {
         "titulo": request.args.get("titulo", "").strip(),
         "ano": request.args.get("ano", "").strip(),
         "tipo": request.args.get("tipo", "").strip(),
         "edital": request.args.get("edital", "").strip(),
         "orientador": request.args.get("orientador", "").strip(),
+        "campus": request.args.get("campus", "").strip(),
     }
 
     query = Project.query
 
-    # PROJETOS DO USUÁRIO LOGADO
+    # PROJETOS DO USUÁRIO
     if current_user.tipo == "discente":
         query = query.join(Project.estudantes).filter(User.id == current_user.id)
 
@@ -155,7 +163,7 @@ def meus_projetos():
             (Project.coorientadores.any(User.id == current_user.id))
         )
 
-    # --- Aplicando filtros ---
+    # === FILTROS ===
     if filtros["titulo"]:
         query = query.filter(Project.titulo.ilike(f"%{filtros['titulo']}%"))
 
@@ -163,13 +171,16 @@ def meus_projetos():
         query = query.filter(Project.tipo == filtros["tipo"])
 
     if filtros["ano"]:
-        query = query.filter(Project.ano == (filtros["ano"]))
+        query = query.filter(Project.ano == filtros["ano"])
 
     if filtros["edital"]:
         query = query.filter(Project.edital.ilike(f"%{filtros['edital']}%"))
 
-    if filtros["orientador"]:
+    if filtros["orientador"].isdigit():
         query = query.filter(Project.orientador_id == int(filtros["orientador"]))
+
+    if filtros["campus"]:
+        query = query.filter(Project.campus == filtros["campus"])
 
     projetos = query.order_by(Project.id.desc()).all()
 
@@ -225,7 +236,7 @@ def atualizar_projeto(project_id):
     projeto.ano = request.form.get("ano")
     projeto.financiador = request.form.get("financiador")
 
-    # estudante IDs
+    # estudantes
     estudantes_ids = request.form.get("estudantes_ids", "")
     if estudantes_ids.strip():
         ids = [int(i) for i in estudantes_ids.split(",") if i.isdigit()]
@@ -233,7 +244,7 @@ def atualizar_projeto(project_id):
     else:
         projeto.estudantes = []
 
-    # coorientadores IDs
+    # coorientadores
     coor_ids = request.form.get("coorientadores_ids", "")
     if coor_ids.strip():
         ids = [int(i) for i in coor_ids.split(",") if i.isdigit()]
@@ -241,16 +252,17 @@ def atualizar_projeto(project_id):
     else:
         projeto.coorientadores = []
 
-    # orientador pode mudar
+    # Se orientador mudou → atualiza campus herdado
     orientador_id = request.form.get("orientador_id")
     if orientador_id and orientador_id.isdigit():
-        projeto.orientador_id = int(orientador_id)
+        novo_orientador = User.query.get(int(orientador_id))
+        projeto.orientador_id = novo_orientador.id
+        projeto.campus = novo_orientador.campus   # <<< ATUALIZA CAMPUS
 
     db.session.commit()
 
     flash("Projeto atualizado com sucesso!", "success")
     return redirect(url_for("project.ver_projeto", project_id=project_id))
-
 
 # ============================================================
 # CONFIRMAR EXCLUSÃO

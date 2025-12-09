@@ -1,88 +1,146 @@
-/* ======================
-   ESTILO GERAL
-====================== */
-body {
+/* =====================================================
+   RESET BÁSICO
+===================================================== */
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     font-family: Arial, sans-serif;
-    background: #f3f3f3;
 }
 
-/* ======================
+body {
+    background: #f5f5f5;
+    color: #222;
+}
+
+/* =====================================================
    NAVBAR
-====================== */
+===================================================== */
 .navbar {
-    background: #005026;
-    padding: 14px 25px;
+    background: #004B23;
+    padding: 16px 40px;
     display: flex;
     align-items: center;
-    gap: 25px;
+    gap: 30px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
 }
 
 .navbar a {
     color: white;
-    text-decoration: none;
     font-weight: bold;
-    font-size: 15px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: 0.2s;
 }
 
 .navbar a:hover {
-    text-decoration: underline;
+    opacity: 0.7;
 }
 
-/* ======================
-   PÁGINA DE LISTAGEM
-====================== */
+/* =====================================================
+   PÁGINAS
+===================================================== */
 .pagina {
-    background: #f0f2f0;
-    padding: 30px 40px;
+    padding: 40px 60px;
     min-height: 100vh;
+    background: #f3f6f3;
 }
 
 .titulo-principal {
-    color: #005026;
     font-size: 32px;
-    margin-bottom: 20px;
-}
-
-/* Filtros (por enquanto estáticos) */
-.filter-box {
-    background: #e8f5e9;
-    padding: 15px;
-    border-radius: 10px;
-    display: flex;
-    gap: 10px;
+    font-weight: bold;
+    color: #004B23;
     margin-bottom: 25px;
 }
 
-.input-text,
-.input-select {
-    padding: 8px 10px;
-    border-radius: 6px;
-    border: 1px solid #bbb;
+/* =====================================================
+   BOTÃO VOLTAR
+===================================================== */
+.btn-voltar-container {
+    width: 100%;
+    padding-left: 40px;
+    margin-top: 15px;
 }
 
-.btn-filtrar {
-    background: #005026;
+.btn-voltar-home {
+    background: #004B23;
     color: white;
-    border: none;
+    padding: 8px 18px;
     border-radius: 6px;
-    padding: 8px 15px;
-    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
 }
 
-.btn-filtrar:hover {
+.btn-voltar-home:hover {
     background: #006837;
 }
 
-/* ======================
-   CARD DOS PROJETOS
-====================== */
+/* =====================================================
+   FILTROS
+===================================================== */
+.filter-box {
+    padding: 18px;
+    background: #E8F5E9;
+    border-radius: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 30px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.filter-box input,
+.filter-box select {
+    padding: 10px 12px;
+    border: 1px solid #cdd9cc;
+    border-radius: 8px;
+    font-size: 14px;
+    min-width: 150px;
+    outline: none;
+    transition: 0.2s;
+}
+
+.filter-box input:focus,
+.filter-box select:focus {
+    border-color: #006837;
+}
+
+.btn-filtrar {
+    padding: 10px 20px;
+    border: none;
+    background: #006837;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-weight: bold;
+}
+
+.btn-filtrar:hover {
+    background: #008f45;
+}
+
+.input-ano {
+    width: 95px !important;
+    text-align: center;
+}
+
+/* =====================================================
+   CARDS DE PROJETO
+===================================================== */
 .project-card {
     background: white;
-    border-radius: 10px;
-    padding: 18px;
-    margin-bottom: 15px;
-    box-shadow: 0 0 6px rgba(0,0,0,0.12);
+    padding: 22px 26px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+    transition: 0.2s;
+}
+
+.project-card:hover {
+    transform: scale(1.005);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.18);
 }
 
 .project-header {
@@ -92,114 +150,107 @@ body {
 }
 
 .project-title {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
-    color: #004d26;
-    max-width: 85%;
-}
-
-.btn-view {
-    padding: 6px 15px;
-    background: #005026;
-    color: white;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.btn-view:hover {
-    background: #007a3d;
+    color: #004B23;
 }
 
 .project-body {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #333;
+    margin-top: 12px;
+    font-size: 15px;
 }
 
-/* ======================
+/* Badge do Campus */
+.badge-campus {
+    display: inline-block;
+    background: #004B23;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+/* Botão visualizar */
+.btn-view {
+    background: #004B23;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: .2s;
+}
+
+.btn-view:hover {
+    background: #007a45;
+}
+
+/* =====================================================
    FORMULÁRIOS
-====================== */
+===================================================== */
 .pagina-central {
-    background: #f0f2f0;
-    width: 100%;
-    min-height: 90vh;
+    padding: 60px 0;
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
 .form-card {
-    background: #fff;
-    width: 480px;
-    padding: 28px 32px;
-    border-radius: 12px;
-    box-shadow: 0 0 12px rgba(0,0,0,0.15);
+    background: white;
+    width: 500px;
+    padding: 35px 45px;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
 }
 
 .form-title {
-    color: #005026;
-    font-size: 26px;
-    margin-bottom: 20px;
+    font-size: 28px;
     text-align: center;
-}
-
-.input-field {
-    width: 100%;
-    padding: 10px;
-    margin-top: 6px;
-    margin-bottom: 14px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
+    color: #004B23;
+    margin-bottom: 25px;
 }
 
 .label {
     font-weight: bold;
-    color: #003818;
+    font-size: 15px;
+    color: #004B23;
+}
+
+.input-field {
+    width: 100%;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+input-field:focus {
+    border-color: #006837;
 }
 
 .btn-primary {
     width: 100%;
     padding: 12px;
-    background: #005026;
     border: none;
-    border-radius: 6px;
+    background: #006837;
     color: white;
+    border-radius: 8px;
+    font-size: 16px;
     font-weight: bold;
     cursor: pointer;
+    transition: .2s;
 }
 
 .btn-primary:hover {
-    background: #007a3d;
+    background: #00914a;
 }
 
-/* ======================
-   FLASH MESSAGES
-====================== */
-.flash {
-    padding: 10px;
-    border-radius: 6px;
-    margin-bottom: 12px;
-    font-weight: bold;
-}
-
-.flash-success {
-    background: #d4f8d4;
-    border-left: 6px solid #2e8b57;
-}
-
-.flash-danger {
-    background: #ffcccc;
-    border-left: 6px solid #cc0000;
-}
-
-/* ======================
-   AUTOCOMPLETE + BADGES
-====================== */
-
+/* =====================================================
+   AUTOCOMPLETE
+===================================================== */
 .autocomplete-wrapper {
     position: relative;
-    width: 100%;
 }
 
 .autocomplete-box {
@@ -207,137 +258,61 @@ body {
     background: white;
     border: 1px solid #ccc;
     border-radius: 6px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    z-index: 9999;
+    margin-top: 5px;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     display: none;
     max-height: 240px;
     overflow-y: auto;
-    width: 100%;
-}
-
-.autocomplete-item {
-    padding: 8px 12px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.autocomplete-item:hover,
-.autocomplete-item.active {
-    background: #e6f5e7;
-}
-
-.badge-box {
-    margin-top: 6px;
-}
-
-.badge-item {
-    display: inline-block;
-    background: #005026;
-    color: white;
-    font-size: 13px;
-    padding: 6px 10px;
-    border-radius: 6px;
-    margin: 4px 4px;
-}
-
-.badge-remove {
-    border: none;
-    background: transparent;
-    color: #ffdddd;
-    font-weight: bold;
-    margin-left: 6px;
-    cursor: pointer;
-}
-.autocomplete-wrapper {
-    position: relative;
-    width: 100%;
-}
-
-.autocomplete-box {
-    position: absolute !important;
-    top: 100%;                /* aparece logo abaixo do input */
-    left: 0;
-    width: 100%;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    margin-top: 4px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     z-index: 9999;
-    display: none;
-    max-height: 220px;
-    overflow-y: auto;
 }
+
 .autocomplete-item {
     padding: 10px;
     cursor: pointer;
 }
 
-.autocomplete-item.active,
-.autocomplete-item:hover {
-    background: #e6f5e7;
+.autocomplete-item:hover,
+.autocomplete-item.active {
+    background: #E8F5E9;
 }
-.btn-voltar {
-    display: inline-block;
-    background: #004d26;
+
+/* BADGES */
+.badge-box {
+    margin-top: 6px;
+}
+
+.badge-item {
+    background: #004B23;
     color: white;
-    padding: 8px 16px;
-    font-size: 15px;
-    border-radius: 6px;
-    text-decoration: none;
-    margin-bottom: 15px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    margin: 4px;
 }
 
-.btn-voltar:hover {
-    background: #006837;
-}
-.btn-voltar-container {
-    width: 100%;
-    padding-left: 40px;
-    margin-top: 15px;
-}
-
-.btn-voltar-home {
-    background: #004d26;
-    color: white;
-    padding: 8px 18px;
-    text-decoration: none;
-    border-radius: 6px;
-    font-size: 15px;
-    display: inline-block;
-}
-
-.btn-voltar-home:hover {
-    background: #006837;
-}
-.filter-box {
-    background: #e8f5e9;
-    padding: 12px;
-    border-radius: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 25px;
-}
-
-.filter-box .input-text,
-.filter-box .input-select {
-    min-width: 150px;
-}
-
-.filter-box .btn-filtrar {
-    background: #005026;
-    color: white;
+.badge-remove {
+    background: none;
     border: none;
-    padding: 8px 18px;
-    border-radius: 6px;
+    color: #ffdddd;
+    font-weight: bold;
     cursor: pointer;
 }
 
-.filter-box .btn-filtrar:hover {
-    background: #007c3a;
+/* =====================================================
+   FLASH MESSAGES
+===================================================== */
+.flash {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
 }
-.input-ano {
-    width: 80px !important;
-    text-align: center;
+
+.flash-success {
+    background: #d4f7d4;
+    border-left: 6px solid #0f7b24;
+}
+
+.flash-danger {
+    background: #ffcfcf;
+    border-left: 6px solid #a80000;
 }

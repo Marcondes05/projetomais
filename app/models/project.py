@@ -19,8 +19,12 @@ class Project(db.Model):
     edital = db.Column(db.String(120))
     ano = db.Column(db.String(10))
     financiador = db.Column(db.String(120))   # <- nome que usamos no form
+    
     orientador_id = db.Column(db.Integer, db.ForeignKey("usuarios.id"))
     orientador = db.relationship("User", foreign_keys=[orientador_id])
+    
+    campus = db.Column(db.String(100), nullable=False)
+    
     estudantes = db.relationship("User", secondary=project_students, backref="projetos_estudante")
     coorientadores = db.relationship("User", secondary=project_coorientadores, backref="projetos_coorientador")
 

@@ -6,15 +6,14 @@
 
     <h1 class="titulo-principal">Projetos Cadastrados</h1>
 
+    <!-- FORM FILTROS -->
     <form method="GET" action="{{ url_for('project.lista_projetos') }}">
         <div class="filter-box">
 
-            <!-- TÍTULO -->
             <input type="text" name="titulo" class="input-text"
                    placeholder="Buscar por título..."
                    value="{{ filtros.titulo }}">
 
-            <!-- TIPO -->
             <select name="tipo" class="input-select">
                 <option value="todos">Todos os tipos</option>
                 <option value="Pesquisa" {% if filtros.tipo=='Pesquisa' %}selected{% endif %}>Pesquisa</option>
@@ -22,43 +21,46 @@
                 <option value="Extensão" {% if filtros.tipo=='Extensão' %}selected{% endif %}>Extensão</option>
             </select>
 
-            <!-- ANO (DIGITÁVEL) -->
-            <input type="text" name="ano" class="input-text"
+            <input type="number" name="ano" class="input-text"
                    placeholder="Ano..."
-                   value="{{ filtros.ano }}"
-                   style="width:90px;">
+                   value="{{ filtros.ano }}">
 
-            <!-- EDITAL -->
             <input type="text" name="edital" class="input-text"
                    placeholder="Edital..."
                    value="{{ filtros.edital }}">
 
-            <!-- ORIENTADOR -->
+            <!-- ORIENTADOR AUTOCOMPLETE -->
             <div class="autocomplete-wrapper" style="width:200px;">
-                <input id="input-orientador"
+                <input id="input-orientador" 
                        class="input-text"
                        autocomplete="off"
-                       placeholder="Orientador..."
-                       value="">
+                       placeholder="Orientador...">
                 <div id="orientador_autocomplete" class="autocomplete-box"></div>
             </div>
+            <input type="hidden" name="orientador" id="orientador_id" value="{{ filtros.orientador }}">
 
-            <!-- HIDDEN REAL PARA O FILTRO -->
-            <input type="hidden" name="orientador" id="orientador_id"
-                   value="{{ filtros.orientador }}">
+            <!-- CAMPUS -->
+            <select name="campus" class="input-select">
+                <option value="">Todos os campi</option>
+                {% for c in [
+                    'Campina Verde','Ituiutaba','Paracatu','Patos de Minas','Patrocínio','Reitoria',
+                    'Sete Lagoas','Uberaba','Uberaba Parque Tecnológico','Uberlândia','Uberlândia Centro'
+                ] %}
+                    <option value="{{ c }}" {% if filtros.campus == c %}selected{% endif %}>{{ c }}</option>
+                {% endfor %}
+            </select>
 
-            <!-- BOTÃO FILTRAR -->
             <button class="btn-filtrar" type="submit">Filtrar</button>
 
-            <!-- BOTÃO LIMPAR -->
-            {% if filtros.titulo or filtros.tipo not in ['', 'todos'] or filtros.ano or filtros.edital or filtros.orientador %}
-            <a href="{{ url_for('project.lista_projetos') }}" class="btn-filtrar" style="background:#7a0000">
-                Limpar
-            </a>
+            {% if filtros.titulo or filtros.tipo not in ['', 'todos'] or filtros.ano or filtros.edital or filtros.orientador or filtros.campus %}
+                <a href="{{ url_for('project.lista_projetos') }}" class="btn-filtrar" style="background:#7a0000">
+                    Limpar
+                </a>
             {% endif %}
         </div>
     </form>
 
+    <!-- LISTAGEM -->
     {% if projetos %}
         {% for p in projetos %}
             <div class="project-card">
@@ -69,6 +71,8 @@
                 </div>
 
                 <div class="project-body">
+
+                    <div><strong>Campus:</strong> {{ p.campus }}</div>
 
                     <div>
                         <strong>Alunos:</strong>
@@ -82,8 +86,7 @@
                     </div>
 
                     <div>
-                        <strong>Orientador:</strong> {{ p.orientador.nome }}
-                        ·
+                        <strong>Orientador:</strong> {{ p.orientador.nome }} ·
                         <strong>Ano:</strong> {{ p.ano }}
                     </div>
 
@@ -93,16 +96,15 @@
     {% else %}
         <p>Nenhum projeto encontrado.</p>
     {% endif %}
+
 </div>
 
-<!-- AUTOCOMPLETE DO FILTRO -->
 <script>
-    App.setupAutocompleteFiltro(
-        "input-orientador",
-        "orientador_id",
-        "orientador_autocomplete"
-    );
+App.setupAutocompleteFiltro(
+    "input-orientador",
+    "orientador_id",
+    "orientador_autocomplete"
+);
 </script>
-
 
 {% endblock %}

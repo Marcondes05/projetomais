@@ -11,6 +11,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(200), unique=True, nullable=False)
     senha = db.Column(db.String(300), nullable=False)
     tipo = db.Column(db.String(30), nullable=False)  # 'discente' ou 'docente' ou 'tecnico'
+    campus = db.Column(db.String(100), nullable=False)
     curso = db.Column(db.String(150), nullable=True)
 
     def set_password(self, raw):

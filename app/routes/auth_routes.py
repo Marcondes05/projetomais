@@ -61,7 +61,8 @@ def registro():
             senha=senha_hash,
             cpf=cpf,
             tipo=tipo,
-            curso=curso if tipo == "discente" else None
+            curso=curso if tipo == "discente" else None,
+            campus=request.form.get("campus")
         )
 
         db.session.add(novo)
