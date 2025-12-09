@@ -110,7 +110,7 @@ def salvar_projeto():
         ano=request.form.get("ano"),
         financiador=request.form.get("financiador"),
         orientador_id=orientador.id,
-        campus=orientador.campus  # <<< HERDANDO CAMPUS
+        campus=orientador.campus 
     )
 
     db.session.add(projeto)
@@ -257,7 +257,7 @@ def atualizar_projeto(project_id):
     if orientador_id and orientador_id.isdigit():
         novo_orientador = User.query.get(int(orientador_id))
         projeto.orientador_id = novo_orientador.id
-        projeto.campus = novo_orientador.campus   # <<< ATUALIZA CAMPUS
+        projeto.campus = novo_orientador.campus  
 
     db.session.commit()
 

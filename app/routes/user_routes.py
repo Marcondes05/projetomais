@@ -13,7 +13,7 @@ def perfil():
 
 
 # ----------------------
-# MEUS PROJETOS (fictício ainda)
+# MEUS PROJETOS 
 # ----------------------
 @user_bp.route("/meus-projetos")
 @login_required

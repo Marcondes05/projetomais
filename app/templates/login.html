@@ -22,7 +22,11 @@
             <input type="email" name="email" placeholder="seuemail@iftm.edu.br" class="input-field" required>
 
             <label class="label">Senha</label>
-            <input type="password" name="senha" placeholder="********" class="input-field" required>
+            <div class="password-wrapper">
+                <input type="password" name="senha" id="senha" class="input-field" required>
+                <span class="toggle-password" onclick="togglePassword('senha', this)">👁</span>
+            </div>
+
 
             <button type="submit" class="btn-primary">Entrar</button>
         </form>

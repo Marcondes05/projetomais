@@ -48,7 +48,10 @@
 
 
             <label class="label">Senha</label>
-            <input type="password" name="senha" class="input-field" required>
+            <div class="password-wrapper">
+                <input type="password" name="senha" id="senha_registro" class="input-field" required>
+                <span class="toggle-password" onclick="togglePassword('senha_registro', this)">👁</span>
+            </div>
 
             <button type="submit" class="btn-primary">Registrar</button>
         </form>

@@ -279,15 +279,15 @@ input-field:focus {
 
 /* BADGES */
 .badge-box {
-    margin-top: 6px;
+    margin-top: 3px;
 }
 
 .badge-item {
     background: #004B23;
     color: white;
-    padding: 6px 12px;
-    border-radius: 8px;
-    margin: 4px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin: 2px;
 }
 
 .badge-remove {
@@ -315,4 +315,27 @@ input-field:focus {
 .flash-danger {
     background: #ffcfcf;
     border-left: 6px solid #a80000;
+}
+
+/* =====================================================
+   VER SENHA    
+===================================================== */
+
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    color: #555;
+}
+
+.toggle-password:hover {
+    color: #000;
 }

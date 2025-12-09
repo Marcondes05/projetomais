@@ -1,178 +1,247 @@
-Perfeito — vou gerar agora **o README da Etapa 4**, seguindo exatamente o mesmo padrão das etapas anteriores:
-✔ resumo técnico
-✔ funcionalidades implementadas
-✔ melhorias visuais
-✔ correções estruturais
-✔ o que será feito na próxima etapa
+# 🧾 Sistema de Gestão de Projetos Acadêmicos – **PROJETOMAIS**
+
+Sistema desenvolvido como Trabalho de Conclusão de Curso (TCC) para centralização, organização e gerenciamento de projetos acadêmicos no âmbito do Instituto Federal do Triângulo Mineiro (IFTM).
+
+O sistema permite que docentes e discentes realizem cadastro, consulta, gerenciamento e acompanhamento de projetos acadêmicos vinculados aos campi da instituição.
 
 ---
 
-# 📘 **README — Etapa 4: CRUD Completo de Projetos + Autocomplete Finalizado**
+## 👨‍💻 **Autor**
+**Marcondes Fernandes Ferreira Neto**
 
-## 🎯 **Objetivo da Etapa**
-
-Implementar o módulo completo de gestão de projetos (CRUD), acessível apenas para docentes, incluindo:
-
-* Criar projeto
-* Editar projeto
-* Excluir projeto (com confirmação)
-* Visualizar detalhes
-* Associar estudantes
-* Associar coorientadores
-* Autocomplete funcional e elegante
-* Restrições de permissão por tipo de usuário
-* Melhorias de interface e navegação
+## 👩‍🏫 **Orientadora**
+**Profa. Reane Franco Goulart**
 
 ---
 
-# ✅ **Funcionalidades Implementadas na Etapa 4**
+# 📌 **Objetivo do Sistema**
 
-## **1. CRUD Completo de Projetos (Docentes)**
+O **PROJETOMAIS** foi criado para resolver problemas comuns na gestão de projetos acadêmicos:
 
-Foram implementadas e testadas as rotas:
+- Dispersão de informações entre diferentes documentos e plataformas  
+- Falta de um ambiente único para consulta e acompanhamento  
+- Dificuldade de controle pelas coordenações e orientadores  
+- Falta de transparência e organização para estudantes
 
-### 🔹 Criar Projeto
-
-* Campos principais: título, resumo, tipo, edital, ano, financiador
-* Seleção do orientador (caso não queira usar o atual usuário)
-* Seleção de estudantes
-* Seleção de coorientadores
-* Salvamento no Supabase via SQLAlchemy
-
-### 🔹 Editar Projeto
-
-* Permite alterar todos os campos
-* Permite adicionar/remover alunos
-* Permite adicionar/remover coorientadores
-* Permite trocar orientador
-* Sistema atualiza corretamente as tabelas associativas
-
-### 🔹 Excluir Projeto
-
-* Tela de confirmação criada
-* Exclusão só permitida ao orientador
-* Proteção contra exclusão indevida
-
-### 🔹 Visualizar Projeto
-
-* Página com informações completas
-* Lista estudantes
-* Lista coorientadores
-* Lista orientador
-* Botões de editar e excluir só aparecem para docentes orientadores
-* Adicionado botão “Voltar”, retornando à tela anterior
+O sistema centraliza **todo o ciclo de vida dos projetos**, desde o cadastro até sua visualização e filtragem por vários critérios.
 
 ---
 
-# 🎨 **2. Autocomplete PROFISSIONAL**
+# 🚀 **Funcionalidades do Sistema**
 
-O maior avanço da etapa.
-
-Implementado autocomplete:
-
-* totalmente funcional
-* rápido (debounce)
-* busca no Supabase
-* exibe lista logo abaixo do input
-* suporta seleção única (orientador)
-* suporta seleção múltipla (alunos e coorientadores)
-* badges removíveis
-* X funcionando perfeitamente
-* estilização coerente com o sistema
-* sem erros no console
-* sem conflito entre inputs
-
-Agora o formulário está ao nível de um sistema real profissional.
+## 👤 **Autenticação**
+- Login seguro (Flask-Login)
+- Perfis: **Docente**, **Discente** e **Técnico**
+- Controle de acesso (RBAC)
+- Senhas protegidas (hashing seguro)
+- Exibição/ocultação de senha no formulário
 
 ---
 
-# 🔐 **3. Regras de Acesso (Autorização por tipo de usuário)**
+## 📚 **Gestão de Projetos (Docentes)**
 
-Implementado e revisado:
+### Criar projetos com:
+- Título
+- Resumo
+- Tipo (Ensino, Pesquisa, Extensão)
+- Edital
+- Ano
+- Financiador
+- Campus herdado automaticamente do orientador
+- Seleção de estudantes
+- Seleção de coorientadores
+- Seleção de orientador (autocomplete)
 
-| Ação            | Discente              | Docente                              |
-| --------------- | --------------------- | ------------------------------------ |
-| Criar projeto   | ❌                     | ✔                                    |
-| Editar projeto  | ❌                     | ✔ somente se for orientador          |
-| Excluir projeto | ❌                     | ✔ somente se for orientador          |
-| Ver detalhes    | ✔ se aluno do projeto | ✔ todos os orientados / coorientados |
-| Meus projetos   | ✔                     | ✔                                    |
+### Editar projetos
+- Atualização completa do cadastro
+- Atualização de vínculos (alunos e coorientadores)
 
-Rota com `@role_required("docente")` implementada nas áreas críticas.
-
-Testado e validado.
-
----
-
-# 🔧 **4. Correções e Ajustes Realizados**
-
-* Corrigido erros de template (`url_for` com nomes errados)
-* Organizado `base.html` com includes (`navbar` e `flash`)
-* Criado botão global “Voltar para Home” nas páginas internas
-* Ajustado CSS para dropdown aparecer **logo abaixo do campo**
-* Limpado duplicações de código
-* Padronizado `.badge-item`
-* Revisado JavaScript do autocomplete (App namespace, fallback, etc.)
-
-Tudo funcionando sem erros.
+### Excluir projetos
+- Exclusão permitida apenas ao orientador do projeto
 
 ---
 
-# 🧪 **5. Testes Realizados**
+## 🔍 **Listagem e Filtros**
 
-* Criado projeto com 1 aluno
-* Criado projeto com vários alunos
-* Adicionado e removido alunos (badge ok)
-* Troca de orientador
-* Exclusão segura testada
-* Discente não consegue editar nem acessar área de docente
-* Navegação funcionando
+### Filtros avançados na página "Projetos":
+- Título
+- Tipo
+- Ano
+- Edital
+- Orientador (autocomplete)
+- Campus  
+- Combinação simultânea de filtros  
+- Ordenação automática (mais recentes primeiro)
 
-**Resultado:** Etapa 4 concluída com sucesso.
-
----
-
-# 🚀 **Próxima Etapa — ETAPA 5: Módulo de Listagem e Filtros**
-
-Esta será uma etapa mais visual e organizacional.
-
-## **O que será implementado:**
-
-### 🟢 **1. Página "Projetos" com filtros reais**
-
-* Filtro por título
-* Filtro por ano
-* Filtro por tipo
-* Filtro por edital
-* Filtro por orientador
-* Combinação de filtros simultâneos
-* Ordenação (mais recentes primeiro)
-
-### 🟢 **2. “Meus Projetos” melhorado**
-
-* Exibir mais informações
-* Possível filtro básico (opcional)
-
-### 🟢 **3. Ajustes de UI/UX**
-
-* Melhorar layout dos cards
-* Melhor spacing
-* Ícones visuais
-* Paleta IFTM mais refinada
+### Página “Meus Projetos”
+- Exibe:
+  - Projetos onde o usuário é orientador
+  - Projetos onde o usuário é coorientador
+  - Projetos onde o estudante está vinculado
+- Filtros básicos (título e ano)
 
 ---
 
-# 📌 **Conclusão**
+## ⚡ **Experiência do Usuário (UX/UI)**
 
-A etapa 4 era a **mais complexa do sistema** — e agora está pronta, estável e profissional.
-
-Você já possui:
-
-✔ CRUD completo
-✔ Autocomplete funcional
-✔ Permissões funcionando
-✔ UI coerente
-✔ Base sólida para a Etapa 5
+- Interface leve e moderna
+- Navbar com navegação inteligente
+- Botões de retorno automática
+- Autocomplete otimizado para:
+  - Orientadores  
+  - Estudantes  
+  - Coorientadores  
+- Badges removíveis para seleção múltipla
+- Layout responsivo
+- Feedback visual com Flash Messages
 
 ---
 
+## 🏛 **Arquitetura do Projeto**
+
+projetomais/
+│
+├── app/
+│ ├── models/
+│ │ ├── user.py
+│ │ ├── project.py
+│ │
+│ ├── routes/
+│ │ ├── auth_routes.py
+│ │ ├── project_routes.py
+│ │ ├── main_routes.py
+│ │ ├── user_routes.py
+│ │
+│ ├── utils/
+│ │ ├── auth_utils.py
+│ │
+│ ├── templates/
+│ │ ├── base.html
+│ │ ├── home.html
+│ │ ├── login.html
+│ │ ├── register.html
+│ │ ├── projetos_list.html
+│ │ ├── meus_projetos.html
+│ │ ├── projeto_view.html
+│ │ ├── project_form.html
+│ │ ├── projeto_edit.html
+│ │
+│ ├── static/
+│ │ ├── css/style.css
+│ │ ├── js/autocomplete.js
+│ │
+│ ├── init.py
+│
+├── config.py
+├── run.py
+├── requirements.txt
+├── README.md
+├── .env
+
+
+---
+
+# 🛢 Banco de Dados – **Supabase (PostgreSQL)**
+
+### Tabela **usuarios**
+| Campo | Tipo | Descrição |
+|-------|-------|-----------|
+| id | integer | PK |
+| nome | varchar | Nome completo |
+| cpf | varchar | Documento do usuário |
+| email | varchar | Login institucional |
+| senha | varchar | Hash seguro |
+| tipo | varchar | docente / discente / técnico |
+| campus | varchar | Campus vinculado |
+| curso | varchar | Curso (somente discentes) |
+
+### Tabela **projects**
+| Campo | Tipo | Descrição |
+|-------|-------|-----------|
+| id | integer | PK |
+| titulo | varchar | Nome do projeto |
+| resumo | text | Pode repetir o título |
+| tipo | varchar | Ensino / Pesquisa / Extensão |
+| edital | varchar | Ex: 15/2024 |
+| ano | varchar | Ex: 2025 |
+| financiador | varchar | PIBIC, PIVIC, FAPEMIG etc |
+| campus | varchar | Herdado do orientador |
+| orientador_id | integer | FK → usuarios.id |
+
+### Tabelas auxiliares
+- **project_students**
+- **project_coorientadores**
+
+Relacionamentos muitos-para-muitos.
+
+---
+
+# 🔧 Instalação e Configuração
+
+### 1️⃣ Clonar o repositório
+```bash
+git clone https://github.com/SEU_USUARIO/projetomais.git
+cd projetomais
+```
+
+### 2️⃣ Criar ambiente virtual
+```bash
+python -m venv venv
+source venv/bin/activate
+```
+
+### 3️⃣ Instalar dependências
+```bash
+pip install -r requirements.txt
+```
+
+### 4️⃣ Criar arquivo .env
+```ini
+DATABASE_URL=postgresql://usuario:senha@host:5432/postgres
+SECRET_KEY=sua_chave_secreta
+```
+
+### 5️⃣ Rodar o sistema
+```bash
+python run.py
+```
+
+---
+
+# 🧠 Lógica do Autocomplete
+
+O autocomplete utilizado para Orientadores, Estudantes e Coorientadores implementa:
+
+- Requisições AJAX a `/buscar-usuarios`
+- Preenchimento automático do campo *hidden*
+- Exibição de badges com opção de remover
+- Prevenção de duplicação de itens selecionados
+- Navegação por teclado (↑ ↓ Enter)
+
+---
+
+# 📈 Melhorias futuras sugeridas
+
+- Recuperação de senha via e-mail  
+- Anexos e upload de documentos do projeto   
+- Dashboard com estatísticas (gráficos)  
+- Módulo de certificados  
+- Histórico e versões do projeto  
+
+---
+
+# 📄 Licença
+Projeto desenvolvido exclusivamente para fins acadêmicos no Instituto Federal do Triângulo Mineiro.
+
+---
+
+# 🏁 Conclusão
+
+O **PROJETOMAIS** entrega uma solução eficiente, organizada e moderna para docentes e discentes acompanharem seus projetos de forma clara e centralizada.  
+É uma plataforma completa que pode ser expandida e integrada futuramente para outros setores acadêmicos.
+
+---
+
+# 🙌 Agradecimentos
+
+A todos os professores, colegas e à orientadora **Reane Franco Goulart** pelo apoio no desenvolvimento deste trabalho.

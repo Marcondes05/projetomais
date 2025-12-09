@@ -248,14 +248,14 @@ window.App.setupAutocompleteFiltro = function (inputId, hiddenId, boxId) {
     }
 
     function selecionar(u) {
-        input.value = u.nome;  // escreve o nome no input
-        hidden.value = u.id;   // ID vai no GET
+        input.value = u.nome;  
+        hidden.value = u.id;   
         box.style.display = "none";
     }
 };
 
 // ===============================
-// AUTOCOMPLETE SIMPLES PARA FILTRO (SEM BADGES)
+// AUTOCOMPLETE SIMPLES PARA FILTRO 
 // ===============================
 window.App.setupAutocompleteFiltro = function (inputId, hiddenId, boxId) {
 
