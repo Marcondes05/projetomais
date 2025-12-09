@@ -95,51 +95,51 @@ O sistema centraliza **todo o ciclo de vida dos projetos**, desde o cadastro at�
 - Layout responsivo
 - Feedback visual com Flash Messages
 
----
+---------------------------------------------------------------------------
 
 ## 🏛 **Arquitetura do Projeto**
 
-projetomais/
-│
-├── app/
-│ ├── models/
-│ │ ├── user.py
-│ │ ├── project.py
-│ │
-│ ├── routes/
-│ │ ├── auth_routes.py
-│ │ ├── project_routes.py
-│ │ ├── main_routes.py
-│ │ ├── user_routes.py
-│ │
-│ ├── utils/
-│ │ ├── auth_utils.py
-│ │
-│ ├── templates/
-│ │ ├── base.html
-│ │ ├── home.html
-│ │ ├── login.html
-│ │ ├── register.html
-│ │ ├── projetos_list.html
-│ │ ├── meus_projetos.html
-│ │ ├── projeto_view.html
-│ │ ├── project_form.html
-│ │ ├── projeto_edit.html
-│ │
-│ ├── static/
-│ │ ├── css/style.css
-│ │ ├── js/autocomplete.js
-│ │
-│ ├── init.py
-│
-├── config.py
-├── run.py
-├── requirements.txt
-├── README.md
-├── .env
+        projetomais/
+        │
+        ├── app/
+        │ ├── models/
+        │ │ ├── user.py
+        │ │ ├── project.py
+        │ │
+        │ ├── routes/
+        │ │ ├── auth_routes.py
+        │ │ ├── project_routes.py
+        │ │ ├── main_routes.py
+        │ │ ├── user_routes.py
+        │ │
+        │ ├── utils/
+        │ │ ├── auth_utils.py
+        │ │
+        │ ├── templates/
+        │ │ ├── base.html
+        │ │ ├── home.html
+        │ │ ├── login.html
+        │ │ ├── register.html
+        │ │ ├── projetos_list.html
+        │ │ ├── meus_projetos.html
+        │ │ ├── projeto_view.html
+        │ │ ├── project_form.html
+        │ │ ├── projeto_edit.html
+        │ │
+        │ ├── static/
+        │ │ ├── css/style.css
+        │ │ ├── js/autocomplete.js
+        │ │
+        │ ├── init.py
+        │
+        ├── config.py
+        ├── run.py
+        ├── requirements.txt
+        ├── README.md
+        ├── .env
 
 
----
+---------------------------------------------------------------------------
 
 # 🛢 Banco de Dados – **Supabase (PostgreSQL)**
 
